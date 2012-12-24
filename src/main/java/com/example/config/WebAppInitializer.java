@@ -1,6 +1,8 @@
 package com.example.config;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -11,12 +13,26 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 import java.util.Set;
 
+/*
+    <servlet>
+         <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+ */
 public class WebAppInitializer implements WebApplicationInitializer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WebAppInitializer.class);
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 
-        System.out.println("Servlet 3.0 started...");
+        LOGGER.info("onStartup called");
 
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.setConfigLocation("com.example.config");
@@ -33,7 +49,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
         Set<String> mappingConflicts = appServlet.addMapping("/");
         if (!mappingConflicts.isEmpty()) {
-            throw new IllegalStateException("'appServlet' cannot be mapped to '/' under Tomcat versions <= 7.0.14");
+            throw new IllegalStateException("'appServlet couldn't be mapped to '/' under Tomcat");
         }
     }
 }
