@@ -1,23 +1,14 @@
 package com.example.config;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc // equivalent in XML to <mvc:annotation-driven />
 @ComponentScan(basePackages = "com.example.controllers")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
-    @Bean
-    public InternalResourceViewResolver configureInternalResourceViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
 }

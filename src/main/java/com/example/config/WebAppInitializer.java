@@ -11,7 +11,6 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
-import java.util.Set;
 
 /*
     <servlet>
@@ -45,11 +44,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
         ServletRegistration.Dynamic appServlet = servletContext.addServlet("appServlet", dispatcher);
         appServlet.setLoadOnStartup(1);
-        appServlet.setAsyncSupported(true);
+        appServlet.addMapping("/");
 
-        Set<String> mappingConflicts = appServlet.addMapping("/");
-        if (!mappingConflicts.isEmpty()) {
-            throw new IllegalStateException("'appServlet couldn't be mapped to '/' under Tomcat");
-        }
     }
 }
